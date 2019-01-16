@@ -1,0 +1,24 @@
+Q1. Explain why do we want sometimes to use setImmediate instead of using setTimeout?
+A1. setImmediate faster than setTimeout because setImmediate  checks queue of I/O eventhandlers.
+ If all I/O events in the current snapshot are processed, it executes the callback. 
+ It queues them immedieately after the last I/O handler somewhat like process.nextTick.
+  So it is faster. and also setTimeout has to pass through timers queue performing any 
+  operations specific to each phase before executing callback
+
+
+Q2. Explain the difference between process.NextTick and setImmediate?
+ A2.   process.NextTick has no crap and it's out of the eventloop and has the higher priority to execure all it's callback before start executing the callback of the event loop,
+    whereas setImmediate is a part of the eventloop which has to pass through all the times queue.
+
+Q3.Name 10 core modules that node provides by default?
+A3. 
+1- console
+2- buffer 
+3- URL
+4- process
+5- setInterval()
+6- clearInterval()
+7- setTimeout()
+8- clearTimeout()
+9- setImmediate()
+10- clearImmediate()
