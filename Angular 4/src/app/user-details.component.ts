@@ -18,7 +18,6 @@ import { Router, CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot } from
 export class UserDetailsComponent implements OnInit {
   private uuid;
   private user;
-  done: false;
   constructor(private route: ActivatedRoute, private dataService: DataService, private router: Router) {
     route.params.subscribe(p => {
       this.uuid = p['uuid'];
@@ -34,12 +33,7 @@ export class UserDetailsComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  canDeactivate(): Observable<boolean> | boolean {
-    if (!this.done) {
-      return confirm('Do you want to leave?');
-    }
-    return true;
-  }
+
 
 }
 @Injectable()
