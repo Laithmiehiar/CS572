@@ -29,9 +29,6 @@ export class UserDetailsComponent implements OnInit {
     this.user = this.dataService.getUserByUUID(this.uuid)[0];
     console.log(this.user)
   }
-  onNavigate() {
-    this.router.navigate(['/']);
-  }
 
 
 
