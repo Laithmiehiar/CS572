@@ -8,8 +8,7 @@ import { MyActivateGuard } from "./user-details.component";
 
 const routes: Routes = [
   { path: '', component: UsersComponent, children: [
-    { path: 'details/:uuid', component: UserDetailsComponent, canActivate: [MyActivateGuard]},
-    // { path: 'details/:uuid', component: UserDetailsComponent},
+    { path: 'details/:uuid', component: UserDetailsComponent, canActivate: [MyActivateGuard]}
     ]},
 ];
 
