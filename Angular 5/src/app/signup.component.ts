@@ -20,7 +20,6 @@ import { debounce } from 'rxjs/operators';
 })
 export class SignupComponent implements OnInit {
   myForm: FormGroup;
-  private emailTimeout;
   constructor(private formBuilder: FormBuilder, private service: ServiceService) {
     this.myForm = formBuilder.group({
       'signup' : formBuilder.group({
@@ -28,9 +27,9 @@ export class SignupComponent implements OnInit {
           'lastname': [],
           'email': ['', [
             Validators.required,
-            Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"),
+            Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")],
             this.asyncEmailValidator.bind(this)
-          ]],
+          ],
           'password': ['', Validators.required],
           'confirmpassword':[],
           'checkbox': []
@@ -44,15 +43,12 @@ export class SignupComponent implements OnInit {
     console.log(this.myForm);
   }
   asyncEmailValidator(control: FormControl): Promise<any> | Observable<any> {
-    clearTimeout(this.emailTimeout);
-     return new Promise((resolve,reject) => {
-        this.emailTimeout = setTimeout(() => {
-          this.service.isuserexist({email: control.value}).subscribe(
-            response    => resolve(null),
-             error       => resolve({invalid: true}));
-        }, (600));
+     return new Promise(resolve => {
+          this.service.isuserexist({email: control.value})
+          .subscribe(res =>{
+              return res? resolve({"invalid":true}): resolve(null)
+          });
     });
-
 
   }
 
@@ -61,19 +57,6 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  public findInvalidControls() {
-    const invalid = [];
-    const controls = this.myForm.controls;
-    for (const name in controls) {
-        if (controls[name].invalid) {
-            invalid.push(name);
-            console.log(invalid)
-        }
-    }
-
-    return invalid;
-}
 }
 
 
