@@ -33,18 +33,11 @@ function hashedPassword (pwd){
 }
 
 function isUserExist(email){
-    const promise = new Promise(
-        (resolve, reject) => {
-          setTimeout(() => {
-            if (users.find(o => o.email === email)) {
-              resolve({invalid:true});
-            } else {
-              resolve( {invalid:false});
-            }
-          }, 500);
-        }
-      );
-      return promise;
+    if (users.find(o => o.email === email)) {
+        return {"invalid":true};
+      } else {
+        return null;
+      }
 
 }
 

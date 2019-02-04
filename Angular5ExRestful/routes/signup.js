@@ -13,10 +13,9 @@ router.post('/', function (req, res, next) {
 
 
 router.post('/isuserexist', function (req, res, next) {
-  auth.isUserExist(req.body.email).then((data) => {
-    res.json(data);
-  }).catch(((err) => { console.log(err) }))
-})
+  let resp = auth.isUserExist(req.body.email);
+    res.json(resp);
+  })
 
 function encryptPassword(body) {
   var obj = {};
